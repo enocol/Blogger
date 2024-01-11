@@ -31,7 +31,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to post_url(Post.last)
   end
-  
+
   test 'should show post' do
     get post_url(@post)
     assert_response :success
