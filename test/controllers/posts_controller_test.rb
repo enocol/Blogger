@@ -28,11 +28,10 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
              }
            }
     end
-  
+
     assert_redirected_to post_url(Post.last)
   end
   
-
   test 'should show post' do
     get post_url(@post)
     assert_response :success
@@ -45,13 +44,18 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update post' do
     patch post_url(@post),
-    params: { post: { AuthorId: @post.AuthorId,
-    CommentsCounter: @post.CommentsCounter,
-    LikesCounter: @post.LikesCounter,
-    text: @post.text, title: @post.title } }
+          params: {
+            post: {
+              AuthorId: @post.AuthorId,
+              CommentsCounter: @post.CommentsCounter,
+              LikesCounter: @post.LikesCounter,
+              text: @post.text,
+              title: @post.title
+            }
+          }
     assert_redirected_to post_url(@post)
   end
-
+  
   test 'should destroy post' do
     assert_difference('Post.count', -1) do
       delete post_url(@post)
