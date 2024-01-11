@@ -2,9 +2,9 @@ class CreatePosts < ActiveRecord::Migration[7.1]
   def change
     create_table :posts do |t|
       t.string :title
-      t.string :text
-      t.string :CommentsCounter
-      t.string :LikesCounter
+      t.text :text
+      t.integer :comments_counter
+      t.integer :likes_counter
       t.bigint :author_id
 
       t.timestamps
