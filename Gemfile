@@ -70,4 +70,3 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 5.0'
 end
-
