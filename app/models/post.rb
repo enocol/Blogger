@@ -18,4 +18,4 @@ class Post < ApplicationRecord
     post = Post.all
     update(posts_counter: post.count)
   end
-  end
+end
