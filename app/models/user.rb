@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :posts, foreign_key: 'author_id', counter_cache: true
   has_many :comments, dependent: :destroy
   has_many :like, dependent: :destroy
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 250 }
   validates :posts_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def recent_posts(limit = 3)
