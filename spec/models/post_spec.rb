@@ -16,7 +16,6 @@ RSpec.describe Post, type: :model do
     expect(post).to be_valid
   end
 
-
   it 'validates comments_counter' do
     post = Post.new(comments_counter: -1)
     post.valid?
@@ -74,7 +73,6 @@ RSpec.describe Post, type: :model do
     # Check if the posts_counter has been incremented
     expect(post2.posts_counter).to eq(post1.posts_counter + 0)
   end
-
 
   def create_comments(post, count)
     comments = []
