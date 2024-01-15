@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 class LikesController < ApplicationController
   before_action :set_like, only: %i[show edit update destroy]

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 # spec/models/post_spec.rb
 
