@@ -66,3 +66,12 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
+
+gem 'factory_bot_rails'
+
+# gem 'shoulda-matchers', '~> 4.0'
+
+
+
+
+
