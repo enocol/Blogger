@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
@@ -17,10 +19,8 @@ RSpec.describe Comment, type: :model do
 
     it 'does not increment post comments counter on destroy' do
       post.reload
-      expect { Comment.destroy(comment.id) }.to_not change { post.comments_counter }
+      expect { Comment.destroy(comment.id) }.to_not(change { post.comments_counter })
       post.reload
     end
-
   end
 end
-

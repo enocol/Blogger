@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 ruby '3.2.2'
@@ -70,8 +72,3 @@ end
 gem 'factory_bot_rails'
 
 # gem 'shoulda-matchers', '~> 4.0'
-
-
-
-
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Like < ApplicationRecord
   belongs_to :user, foreign_key: 'user_id'
   belongs_to :post, foreign_key: 'post_id', counter_cache: :likes_counter
@@ -12,9 +14,9 @@ class Like < ApplicationRecord
 
   def update_post_likes_counter
     # Check if the associated post exists
-    if post.present?
-      # Increment the likes_counter on the associated post
-      post.update_column(:likes_counter, post.likes.count)
-    end
+    return unless post.present?
+
+    # Increment the likes_counter on the associated post
+    post.update_column(:likes_counter, post.likes.count)
   end
 end
