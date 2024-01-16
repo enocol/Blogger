@@ -26,14 +26,13 @@ RSpec.describe User, type: :model do
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
-     
       expect(user.posts_counter).to eq(1)
     end
   end
 
   describe 'validations' do
     it 'ensures posts_counter is a non-negative integer' do
-      user = User.new(name: "Name", posts_counter: 5)
+      user = User.new(name: 'Name', posts_counter: 5)
 
       expect(user).to be_valid
 
@@ -47,9 +46,8 @@ RSpec.describe User, type: :model do
     describe '#recent_comments' do
       it 'returns the 3 most recent comments for the user' do
         user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-        post = Post.create(author_id: user.id, title: 'title', text: 'This is a post')  
+        post = Post.create(author_id: user.id, title: 'title', text: 'This is a post')
 
-      
         comment1 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 1', created_at: 3.days.ago)
         comment2 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 2', created_at: 2.days.ago)
         comment3 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 3', created_at: 1.day.ago)
@@ -57,9 +55,7 @@ RSpec.describe User, type: :model do
 
         recent_comments = user.recent_comments
         expect(recent_comments).to eq([comment4, comment3, comment2])
-
-    
-      expect(recent_comments).to eq(user.comments.order(created_at: :desc).limit(3))
+        expect(recent_comments).to eq(user.comments.order(created_at: :desc).limit(3))
     end
   end
   end
