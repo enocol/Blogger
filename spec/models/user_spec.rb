@@ -22,16 +22,12 @@ RSpec.describe User, type: :model do
     user = User.create(name: 'John Doe', bio: 'student', photo: 'photo.jpg')
 
     it 'returns the 2 most recent posts' do
-      
       user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-      
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
       Post.create(author_id: user.id, title: 'title', text: 'This is a post')
      
-
       expect(user.posts_counter).to eq(1)
-
     end
   end
 
