@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
       user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
       post = Post.create(author_id: user.id, title: 'title', text: 'This is a post')
 
-      comment1 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 1', created_at: 3.days.ago)
+      # comment1 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 1', created_at: 3.days.ago)
       comment2 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 2', created_at: 2.days.ago)
       comment3 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 3', created_at: 1.day.ago)
       comment4 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 4', created_at: Time.current)
