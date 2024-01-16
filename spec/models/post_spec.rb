@@ -17,7 +17,7 @@ RSpec.describe Post, type: :model do
   end
 
   it 'validates comments_counter' do
-    post = Post.new(author_id: user.id, title: "sample title", text: "sample text", comments_counter: -1)
+    post = Post.new(author_id: user.id, title: 'sample title', text: 'sample text', comments_counter: -1)
     post.valid?
     expect(post.errors[:comments_counter]).to include('must be greater than or equal to 0')
   end
@@ -46,7 +46,7 @@ RSpec.describe Post, type: :model do
 
   it 'starts with a default value' do
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-    post = Post.create(author_id: user.id, title: 'title', text: 'test') 
+    post = Post.create(author_id: user.id, title: 'title', text: 'test')
     expect(post.reload.posts_counter).to eq(0)
   end
 
