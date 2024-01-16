@@ -6,7 +6,7 @@ RSpec.describe Post, type: :model do
   user = User.create(name: 'John Doe', bio: 'Programmer', photo: 'profile.jpg')
 
   it 'validates presence and length of title' do
-    post = Post.new(title: nil, author_id: user.id, text: 'Sample Body',)
+    post = Post.new(title: nil, author_id: user.id, text: 'Sample Body')
     expect(post).not_to be_valid
 
     post.title = 'a' * 251
