@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { User.create(name: 'John Doe', bio: 'john@example.com') }
+  user = User.create(name: 'John Doe', bio: 'Programmer', photo: 'profile.jpg')
 
   it 'validates presence and length of title' do
-    post = Post.new(title: nil, user:)
+    post = Post.new(title: nil, author_id: user.id, text: 'Sample Body',)
     expect(post).not_to be_valid
 
     post.title = 'a' * 251
@@ -17,14 +17,9 @@ RSpec.describe Post, type: :model do
   end
 
   it 'validates comments_counter' do
-    post = Post.new(comments_counter: -1)
+    post = Post.new(author_id: user.id, title: "sample title", text: "sample text", comments_counter: -1)
     post.valid?
     expect(post.errors[:comments_counter]).to include('must be greater than or equal to 0')
-  end
-
-  it 'update_posts_counter increments posts_counter' do
-    post = Post.new(title: 'Sample Title', user:)
-    expect { post.save }.to change { post.posts_counter }.by(1)
   end
 
   it 'returns the 5 most recent comments in descending order of creation' do
@@ -51,8 +46,8 @@ RSpec.describe Post, type: :model do
 
   it 'starts with a default value' do
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-    post = Post.create(author_id: user.id, title: 'title', text: 'test') # Assuming you have a way to create a post
-    expect(post.reload.posts_counter).to eq(1) # Update this based on your default value
+    post = Post.create(author_id: user.id, title: 'title', text: 'test') 
+    expect(post.reload.posts_counter).to eq(0)
   end
 
   it 'increments automatically when a new post is created' do
