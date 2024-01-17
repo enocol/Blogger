@@ -46,16 +46,12 @@ RSpec.describe Post, type: :model do
 
   it 'starts with a default value' do
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-    post = Post.create(author_id: user.id, title: 'title', text: 'test')
     expect(user.reload.posts_counter).to eq(1)
   end
 
   it 'increments automatically when a new post is created' do
-    # Create a user
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-
     post1 = Post.create(author_id: user.id, title: 'some title', text: 'some text')
-
     post2 = Post.create(author_id: user.id, title: 'some title', text: 'some text')
 
     post1.reload
