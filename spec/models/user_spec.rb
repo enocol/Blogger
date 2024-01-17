@@ -23,7 +23,8 @@ RSpec.describe User, type: :model do
       user = User.create(
         name: 'John Doe',
         bio: 'Programmer',
-        photo: 'photo.jpg')
+        photo: 'photo.jpg'
+      )
       older_post = Post.create(
         author_id: user.id,
         created_at: 4.days.ago,
@@ -36,7 +37,8 @@ RSpec.describe User, type: :model do
         title: 'Recent Post 1',
         text: 'This is a post'
       )
-      recent_post2 = Post.create(author_id: user.id,
+      recent_post2 = Post.create(
+        author_id: user.id,
         created_at: 1.day.ago,
         title: 'Recent Post 2',
         text: 'This is a post'
