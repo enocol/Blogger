@@ -18,21 +18,32 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'Helper Methods' do
-    user = User.create(name: 'John Doe', bio: 'student', photo: 'photo.jpg')
+  describe '#recent_posts' do
+  
+    it 'returns recent posts in descending order' do
+      user = User.create(name: 'John Doe', bio: "Programmer", photo: "photo.jpg")
+      older_post = Post.create(author_id: user.id, created_at: 4.days.ago, title: 'Older Post', text: 'This is a post')
+      recent_post1 = Post.create(author_id: user.id, created_at: 2.days.ago, title: 'Recent Post 1', text: 'This is a post')
+      recent_post2 = Post.create(author_id: user.id, created_at: 1.day.ago, title: 'Recent Post 2', text: 'This is a post')
 
-    it 'returns the 2 most recent posts' do
-      user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
-      Post.create(author_id: user.id, title: 'title', text: 'This is a post')
-      Post.create(author_id: user.id, title: 'title', text: 'This is a post')
-      Post.create(author_id: user.id, title: 'title', text: 'This is a post')
-      expect(user.posts_counter).to eq(1)
+      result = user.recent_posts()
+      expect(result).to eq([recent_post2, recent_post1, older_post])
+    end
+
+    it 'limits the number of posts based on the provided limit' do
+      user = User.create(name: 'John Doe', bio: "Programmer", photo: "photo.jpg")
+      Post.create(author_id: user.id, title: 'Post 1', text: 'This is a post')
+      Post.create(author_id: user.id, title: 'Post 2', text: 'This is a post')
+      Post.create(author_id: user.id, title: 'Post 3', text: 'This is a post')
+
+      result = user.recent_posts(2)
+      expect(result.length).to eq(2)
     end
   end
 
   describe 'validations' do
     it 'ensures posts_counter is a non-negative integer' do
-      user = User.new(name: 'Name', posts_counter: 5)
+      user = User.new(name: 'Name', bio: 'programmer', posts_counter: 5)
 
       expect(user).to be_valid
 
@@ -48,8 +59,6 @@ RSpec.describe User, type: :model do
     it 'returns the 3 most recent comments for the user' do
       user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
       post = Post.create(author_id: user.id, title: 'title', text: 'This is a post')
-
-      # comment1 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 1', created_at: 3.days.ago)
       comment2 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 2', created_at: 2.days.ago)
       comment3 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 3', created_at: 1.day.ago)
       comment4 = Comment.create(user_id: user.id, post_id: post.id, text: 'Comment 4', created_at: Time.current)
