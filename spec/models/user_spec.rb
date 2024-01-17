@@ -20,15 +20,26 @@ RSpec.describe User, type: :model do
 
   describe '#recent_posts' do
     it 'returns recent posts in descending order' do
-      user = User.create(name: 'John Doe', bio: 'Programmer', photo: "photo.jpg")
-      older_post = Post.create(author_id: user.id, created_at: 4.days.ago,
-      title: 'Older Post', text: 'This is a post'
+      user = User.create(
+        name: 'John Doe',
+        bio: 'Programmer',
+        photo: 'photo.jpg')
+      older_post = Post.create(
+        author_id: user.id,
+        created_at: 4.days.ago,
+        title: 'Older Post',
+        text: 'This is a post'
       )
-      recent_post1 = Post.create(author_id: user.id, created_at: 2.days.ago,
-      title: 'Recent Post 1', text: 'This is a post'
+      recent_post1 = Post.create(
+        author_id: user.id,
+        created_at: 2.days.ago,
+        title: 'Recent Post 1',
+        text: 'This is a post'
       )
-      recent_post2 = Post.create(author_id: user.id, created_at: 1.day.ago,
-      title: 'Recent Post 2', text: 'This is a post'
+      recent_post2 = Post.create(author_id: user.id,
+        created_at: 1.day.ago,
+        title: 'Recent Post 2',
+        text: 'This is a post'
       )
 
       result = user.recent_posts
