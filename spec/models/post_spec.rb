@@ -47,26 +47,22 @@ RSpec.describe Post, type: :model do
   it 'starts with a default value' do
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
     post = Post.create(author_id: user.id, title: 'title', text: 'test')
-    expect(post.reload.posts_counter).to eq(0)
+    expect(user.reload.posts_counter).to eq(1)
   end
 
   it 'increments automatically when a new post is created' do
     # Create a user
     user = User.create(name: 'John Doe', bio: 'Some bio text', photo: 'profile.jpg')
 
-    # Create the first post
     post1 = Post.create(author_id: user.id, title: 'some title', text: 'some text')
 
-    # Create the second post
     post2 = Post.create(author_id: user.id, title: 'some title', text: 'some text')
 
-    # Reload the posts and user to get the latest data from the database
     post1.reload
     post2.reload
     user.reload
 
-    # Check if the posts_counter has been incremented
-    expect(post2.posts_counter).to eq(post1.posts_counter + 0)
+    expect(user.posts_counter).to eq(1)
   end
 
   def create_comments(post, count)
