@@ -9,16 +9,16 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find_by(id: params[:id])
+      @user = User.find_by(id: params[:id])
 
         if @user.nil?
-            redirect_to users_path
-            return
+          redirect_to users_path
+          return
         end
     end
 
     def posts
-        @user_posts = @user.posts
+      @user_posts = @user.posts
     end
 
     def show_user_post
@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     private
 
     def set_user
-        @user = User.find(params[:id])
+      @user = User.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        flash[:error] = 'User not found'
-        redirect_to users_path
+      flash[:error] = 'User not found'
+      redirect_to users_path
     end
 
     def set_post
