@@ -1,69 +1,50 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: [:show]
+  before_action :set_user, only: %i[show posts]
+  # before_action :set_post, only: [:post_detail]
+  before_action :set_post, only: [:show_user_post]
 
-  # GET /users or /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @user = User.find_by(id: params[:id])
 
-  # GET /users/new
-  def new
-    @user = User.new
+    return unless @user.nil?
+
+    redirect_to users_path
+    nil
   end
 
-  # GET /users/1/edit
-  def edit; end
-
-  # POST /users or /users.json
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+  def posts
+    @user_posts = @user.posts
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1 or /users/1.json
-  def destroy
-    @user.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  def show_user_post; end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = 'User not found'
+    redirect_to users_path
   end
 
-  # Only allow a list of trusted parameters through.
-  def user_params
-    params.require(:user).permit(:title, :text, :comments_counter, :likes_counter, :author_id)
+  def set_post
+    if @user.nil?
+      flash[:error] = 'User not found'
+      @user = nil
+
+    else
+      @post = @user.posts.find_by(id: params[:post_id])
+
+      if @post.nil?
+        flash[:error] = 'Post not found'
+        # redirect_to user_posts_path(@user)
+        @post = nil
+      end
+    end
   end
 end
