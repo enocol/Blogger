@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  # resources :likes
-  # resources :comments
-  # resources :posts
+  resources :likes
+  resources :comments
+  resources :posts
   get 'users/:id', to: 'users#show', as: 'user'
   get 'users/:id/posts', to: 'users#posts', as: :user_posts
   get 'users/:id/posts/:id', to: 'users#show_user_post', as: 'show_user_post'
