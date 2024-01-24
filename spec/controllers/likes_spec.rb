@@ -23,6 +23,3 @@ RSpec.describe LikesController, type: :controller do
     end
   end
 end
-
-
-
